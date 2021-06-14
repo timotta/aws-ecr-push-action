@@ -1,10 +1,6 @@
 const core = require('@actions/core')
 const github = require('@actions/github')
-const {
-  getRepositoryUri,
-  tagImage,
-} = require('./main')
-
+const { getRepositoryUri, tagImage, buildImage, pushImage } = require('./main')
 
 const run = async () => {
   try {
@@ -20,13 +16,13 @@ const run = async () => {
 
     const output = await getRepositoryUri(params)
     const repositoryUri = output.repositories[0].repositoryUri
-    core.setOutput('repository_uri', repositoryUri);
+    core.setOutput('repository_uri', repositoryUri)
     await buildImage(params)
     tags.forEach(async (tag) => {
       await tagImage({ ...params, tag })
     })
     await pushImage(params)
-  } catch(e) {
+  } catch (e) {
     console.error(e)
   }
 }
