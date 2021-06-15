@@ -7,11 +7,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Docker build and push to ECR 
-        uses: olxbr/aws-ecr-push-action@v0.2
+        uses: olxbr/aws-ecr-push-action@v0.4
         id: ecr
         with:
-          ecr_repository: 'cross/devtools/ecr'
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
+          ecr_repository: 'cross/dev-tools/ecr'
