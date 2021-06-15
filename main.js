@@ -5,7 +5,8 @@ const {
   CreateRepositoryCommand,
   PutImageCommand,
   GetAuthorizationTokenCommand,
-} = require("@aws-sdk/client-ecr");
+} = require("@aws-sdk/client-ecr")
+const { AssumeRoleCommand} = require("@aws-sdk/client-sts")
 const { defaultProvider } = require('@aws-sdk/credential-provider-node')
 const policy = require('./policy')
 
@@ -29,7 +30,7 @@ const logBuffer = (buffer) => logData(buffer.toString())
 const describeRepo = (params) => client.send(new DescribeRepositoriesCommand(params))
 const createRepo = (params) => client.send(new CreateRepositoryCommand(params))
 const getAuthorizationToken = (params) => client.send(new GetAuthorizationTokenCommand(params))
-
+const assumeRole = async (params) => client.send(new AssumeRoleCommand(params))
 
 const describeRepoErrorHandler =
   (config) =>
@@ -110,3 +111,4 @@ exports.getRepositoryUri = getRepositoryUri
 exports.buildImage = buildImage
 exports.pushImage = pushImage
 exports.tagImage = tagImage
+exports.assumeRole = assumeRole

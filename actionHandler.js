@@ -20,6 +20,12 @@ const run = async () => {
       tags,
     }
 
+    console.log('Assuming role')
+    await assumeRole({
+      RoleArn: process.env.AWS_ROLE_ARN,
+      RoleSessionName: 'aws-ecr-push-action-ci',
+    })
+
     const output = await getRepositoryUri(params)
     const repositoryUri = output.repositories[0].repositoryUri
     core.setOutput('repository_uri', repositoryUri);
