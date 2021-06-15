@@ -4,6 +4,7 @@ const {
   getRepositoryUri,
   buildImage,
   pushImage,
+  assumeRole,
   tagImage,
 } = require('./main')
 
