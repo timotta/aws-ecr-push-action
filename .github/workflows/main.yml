@@ -2,14 +2,14 @@ on: [push]
 
 jobs:
   ecr:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, cross, prod]
     name: Builds and pushes docker images to ECR 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
       - name: Docker build and push to ECR 
-        uses: olxbr/aws-ecr-push-action@v0.4
+        uses: ./action
         id: ecr
         with:
           ecr_repository: 'cross/dev-tools/ecr'
