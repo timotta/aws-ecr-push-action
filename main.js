@@ -58,7 +58,7 @@ const getRepositoryUri = (config) => describeRepo(config)
   .catch(logError)
 
 const buildImage = (config) => new Promise((resolve, reject) => {
-  console.log('Building image...')
+  console.log(`Building image ${ECR_ENDPOINT}/${config.repositoryNames[0]}...`)
   const imageName = `${ECR_ENDPOINT}/${config.repositoryNames[0]}`
   const cmd = spawn('docker', [`build`, `-t`, imageName,  '.'])
   cmd.stdout.on('data', logBuffer)
