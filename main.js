@@ -108,7 +108,6 @@ const dockerLoginOnECR = (config) => new Promise(async (resolve, reject) => {
 })
 
 const pushImage = async (config) => {
-  await dockerLoginOnECR()
   console.log(`Pushing tag ${config.tag}...`)
   return new Promise((resolve, reject) => {
     const cmd = spawn('docker', ['push', `${ECR_ENDPOINT}/${config.repositoryNames[0]}:${config.tag}`])
@@ -154,6 +153,7 @@ const reportImageThreats = (config) => new Promise((resolve, reject) => {
       minimalSeverity = 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL';
       break;
   }
+  await dockerLoginOnECR()
   const dockerBuild = spawnSync(
     'docker',
     [
