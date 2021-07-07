@@ -120,6 +120,10 @@ const pushImage = async (config) => {
 }
 
 const reportImageThreats = (config) => new Promise((resolve, reject) => {
+  if (config.ignoreThreats === 'true') {
+    return resolve('ignore_threats is true, skipping workflow interruption');
+  }
+  
   console.log('X9 will find something to blame now...');
 
   const curl = spawnSync(
@@ -186,10 +190,6 @@ const reportImageThreats = (config) => new Promise((resolve, reject) => {
     }
     console.log(cat.stdout.toString());
   });
-
-  if (config.ignoreThreats === 'true') {
-    return resolve('ignore_threats is true, skipping workflow interruption');
-  }
 
   const clamScanFileName = 'recursive-root-dir-clamscan.txt';
   const clamScanFile = `${scansFolder}/${clamScanFileName}`;
